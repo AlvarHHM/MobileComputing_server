@@ -1,0 +1,38 @@
+<html>
+<head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		// bind 'myForm' and provide a simple callback function 
+		$('#form').ajaxForm(function() {
+			//$('#form').clearForm();
+			$('.value').attr('value','');
+		});
+		$('#addField').click(function() {
+			$('#property').append($('#property_template').clone().css("display","inline-block"));
+		});
+	});
+	
+</script>
+</head>
+<button id="addField">Add field</button>
+<form id="form" action="/data" method=post>
+	
+	Entity Name: <input type="text" name="entity" />
+	
+	<div id="property"></div>
+	<input type="submit" value="Submit Comment" />
+</form>
+<div id="property_template" style="display:none">
+		<p>
+			Name: <input type="text" name="name" />
+		</p>
+		<p>
+			Value: <input type="text" name="value" class="value"/>
+		</p>
+		<hr/>
+	</div>
+
+</html>

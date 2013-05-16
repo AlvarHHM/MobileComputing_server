@@ -1,0 +1,82 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://alvar-mbass.appspot.com/_ah/api",
+  "name" : "account",
+  "version" : "v1",
+  "defaultVersion" : false,
+  "adapter" : {
+    "bns" : "https://alvar-mbass.appspot.com/_ah/spi",
+    "deadline" : 10.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "methods" : {
+    "account.login" : {
+      "path" : "login/{username}/{password}",
+      "httpMethod" : "POST",
+      "scopes" : [ ],
+      "audiences" : [ ],
+      "clientIds" : [ ],
+      "rosyMethod" : "edu.mb.api.AccountEndPoint.login",
+      "request" : {
+        "parameters" : {
+          "username" : {
+            "type" : "string",
+            "required" : true
+          },
+          "password" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "Account" : {
+        "id" : "Account",
+        "type" : "object",
+        "properties" : {
+          "userId" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "username" : {
+            "type" : "string"
+          },
+          "password" : {
+            "type" : "string"
+          },
+          "accountType" : {
+            "type" : "integer"
+          }
+        }
+      }
+    },
+    "methods" : {
+      "edu.mb.api.AccountEndPoint.login" : {
+        "response" : {
+          "$ref" : "Account"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,286 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://alvar-mbass.appspot.com/_ah/api",
+  "name" : "data",
+  "version" : "v1",
+  "defaultVersion" : false,
+  "adapter" : {
+    "bns" : "https://alvar-mbass.appspot.com/_ah/spi",
+    "deadline" : 10.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "methods" : {
+    "data.uploadElector" : {
+      "path" : "uploadElector",
+      "httpMethod" : "POST",
+      "scopes" : [ ],
+      "audiences" : [ ],
+      "clientIds" : [ ],
+      "rosyMethod" : "edu.mb.api.ExitPollEndPoint.uploadElector",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "data.retrieveCandidateList" : {
+      "path" : "retrieveCandidateList/{gcId}",
+      "httpMethod" : "POST",
+      "scopes" : [ ],
+      "audiences" : [ ],
+      "clientIds" : [ ],
+      "rosyMethod" : "edu.mb.api.ExitPollEndPoint.retrieveCandidateList",
+      "request" : {
+        "parameters" : {
+          "gcId" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "data.uploadPollData" : {
+      "path" : "uploadPollData/{electorId}",
+      "httpMethod" : "POST",
+      "scopes" : [ ],
+      "audiences" : [ ],
+      "clientIds" : [ ],
+      "rosyMethod" : "edu.mb.api.ExitPollEndPoint.uploadPollData",
+      "request" : {
+        "parameters" : {
+          "electorId" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "empty"
+      }
+    },
+    "data.retrieveAllParty" : {
+      "path" : "retrieveAllParty",
+      "httpMethod" : "POST",
+      "scopes" : [ ],
+      "audiences" : [ ],
+      "clientIds" : [ ],
+      "rosyMethod" : "edu.mb.api.ExitPollEndPoint.retrieveAllParty",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "data.retrieveAllDistrict" : {
+      "path" : "retrieveAllDistrict",
+      "httpMethod" : "POST",
+      "scopes" : [ ],
+      "audiences" : [ ],
+      "clientIds" : [ ],
+      "rosyMethod" : "edu.mb.api.ExitPollEndPoint.retrieveAllDistrict",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "Elector" : {
+        "id" : "Elector",
+        "type" : "object",
+        "properties" : {
+          "electorId" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "age" : {
+            "type" : "integer"
+          },
+          "gender" : {
+            "type" : "string"
+          },
+          "income" : {
+            "type" : "string"
+          }
+        }
+      },
+      "CandidateList" : {
+        "id" : "CandidateList",
+        "type" : "object",
+        "properties" : {
+          "cListId" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "gcId" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "listId" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "candidateNum" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "candidateName" : {
+            "type" : "string"
+          },
+          "partyId" : {
+            "type" : "string",
+            "format" : "int64"
+          }
+        }
+      },
+      "CandidateListCollection" : {
+        "id" : "CandidateListCollection",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "CandidateList"
+            }
+          }
+        }
+      },
+      "PollData" : {
+        "id" : "PollData",
+        "type" : "object",
+        "properties" : {
+          "pdId" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "userId" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "timestamp" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "gcId" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "listId" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "electorId" : {
+            "type" : "string",
+            "format" : "int64"
+          }
+        }
+      },
+      "Party" : {
+        "id" : "Party",
+        "type" : "object",
+        "properties" : {
+          "partyId" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "partyName" : {
+            "type" : "string"
+          }
+        }
+      },
+      "PartyCollection" : {
+        "id" : "PartyCollection",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Party"
+            }
+          }
+        }
+      },
+      "GcDistrict" : {
+        "id" : "GcDistrict",
+        "type" : "object",
+        "properties" : {
+          "gcId" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "gcName" : {
+            "type" : "string"
+          }
+        }
+      },
+      "GcDistrictCollection" : {
+        "id" : "GcDistrictCollection",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "GcDistrict"
+            }
+          }
+        }
+      }
+    },
+    "methods" : {
+      "edu.mb.api.ExitPollEndPoint.uploadElector" : {
+        "request" : {
+          "$ref" : "Elector"
+        },
+        "response" : {
+          "$ref" : "Elector"
+        }
+      },
+      "edu.mb.api.ExitPollEndPoint.retrieveCandidateList" : {
+        "response" : {
+          "$ref" : "CandidateListCollection"
+        }
+      },
+      "edu.mb.api.ExitPollEndPoint.uploadPollData" : {
+        "request" : {
+          "$ref" : "PollData"
+        }
+      },
+      "edu.mb.api.ExitPollEndPoint.retrieveAllParty" : {
+        "response" : {
+          "$ref" : "PartyCollection"
+        }
+      },
+      "edu.mb.api.ExitPollEndPoint.retrieveAllDistrict" : {
+        "response" : {
+          "$ref" : "GcDistrictCollection"
+        }
+      }
+    }
+  }
+}
